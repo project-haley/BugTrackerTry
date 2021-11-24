@@ -9,6 +9,7 @@ namespace BugTrackerTry.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                // necessary
                 name: "AspNetRoles",
                 columns: table => new
                 {
