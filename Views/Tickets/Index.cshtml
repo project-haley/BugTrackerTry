@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BugTrackerTry.Models.Project>
+﻿@model IEnumerable<BugTrackerTry.Models.Ticket>
 
 @{
     ViewData["Title"] = "Index";
@@ -16,10 +16,10 @@
                 @Html.DisplayNameFor(model => model.ProjectUserId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.Body)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Created)
@@ -28,13 +28,22 @@
                 @Html.DisplayNameFor(model => model.Updated)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Resolved)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TicketStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TicketType)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.ImageData)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ContentType)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ProjectUsers)
+                @Html.DisplayNameFor(model => model.Project)
             </th>
             <th></th>
         </tr>
@@ -46,10 +55,10 @@
                 @Html.DisplayFor(modelItem => item.ProjectUserId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
+                @Html.DisplayFor(modelItem => item.Body)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Created)
@@ -58,18 +67,22 @@
                 @Html.DisplayFor(modelItem => item.Updated)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Resolved)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TicketStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TicketType)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.ImageData)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ContentType)
             </td>
             <td>
-                <ul>
-                    @foreach (var projectUser in item.ProjectUsers)
-                    {
-                        <li>@projectUser.UserName</li>
-                    }
-                </ul>
+                @Html.DisplayFor(modelItem => item.Project.Id)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

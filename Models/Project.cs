@@ -10,7 +10,7 @@ namespace BugTrackerTry.Models
     public class Project
     {
         public int Id { get; set; }
-        public int ProjectUserId { get; set; }
+        public string ProjectUserId { get; set; }
 
         public string Name { get; set; }
         public string Description { get; set; }
@@ -25,12 +25,10 @@ namespace BugTrackerTry.Models
         public IFormFile Image { get; set; }
 
         //Navigation properties
-        //public virtual Company Company { get; set; }
-        public virtual ProjectUser ProjectUser { get; set; }
-        public virtual Company Company { get; set; }
-        public virtual IEnumerable<Ticket> Tickets { get; set; } = new HashSet<Ticket>();
 
-        //How to create a nagivation property of all users associated with a project?
-        //Should this even be a navigation property?
+
+        public virtual ICollection<ProjectUser> ProjectUsers { get; set; } = new HashSet<ProjectUser>();
+        public virtual ICollection<Ticket> Tickets { get; set; } = new HashSet<Ticket>();
+
     }
 }

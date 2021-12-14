@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BugTrackerTry.Data;
 using BugTrackerTry.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace BugTrackerTry.Controllers
 {
@@ -15,16 +16,22 @@ namespace BugTrackerTry.Controllers
     public class ProjectsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ProjectUser> _userManager;
 
-        public ProjectsController(ApplicationDbContext context)
+        public ProjectsController(ApplicationDbContext context, UserManager<ProjectUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Projects
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Projects.ToListAsync());
+            var projectList = await _context.Projects
+                .Include(p => p.ProjectUsers)
+                .Include(p => p.Tickets)
+                .ToListAsync();
+            return View(projectList);
         }
 
         // GET: Projects/Details/5
@@ -58,12 +65,35 @@ namespace BugTrackerTry.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator, ProjectManager")]
-        public async Task<IActionResult> Create([Bind("Id,ProjectUserId,Name,Description,Created,Updated,ImageData,ContentType")] Project project)
+        public async Task<IActionResult> Create([Bind("Name,Description,ImageData,ContentType,ProjectUsers")] Project project, List<string> userList)
         {
             if (ModelState.IsValid)
             {
+                var authorId = _userManager.GetUserId(User);
+
+                project.Created = DateTime.Now;
+                project.Updated = DateTime.Now;
+                project.ProjectUserId = authorId;
+
+                //First, add project to db?
                 _context.Add(project);
                 await _context.SaveChangesAsync();
+
+                //Then, attach navigation properties to project?
+                var newProject = await _context.Projects
+                    .FirstOrDefaultAsync(p => p.Id == project.Id);
+
+
+                foreach (var userOption in userList)
+                {
+                    // I think this works, but can't display them anywhere...
+                    // Update: it is working, and project still contains projectUsers up until savechanges...
+                    var targetUser = await _context.Users.FirstOrDefaultAsync(u => u.UserName == userOption);
+                    newProject.ProjectUsers.Add(targetUser);
+                }
+
+                await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             return View(project);

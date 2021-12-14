@@ -68,7 +68,7 @@ namespace BugTrackerTry.Services
                 UserName = "seeduser1@mailinator.com",
                 FirstName = "John",
                 LastName = "Doe",
-                DisplayName = "Administrator",
+                DisplayName = "seeduser1",
                 EmailConfirmed = true
             };
             var developerUser = new ProjectUser()
@@ -77,7 +77,7 @@ namespace BugTrackerTry.Services
                 UserName = "seeduser2@mailinator.com",
                 FirstName = "Jane",
                 LastName = "Doe",
-                DisplayName = "Developer",
+                DisplayName = "seeduser2",
                 EmailConfirmed = true
             };
 

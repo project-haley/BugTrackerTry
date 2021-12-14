@@ -1,0 +1,69 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using BugTrackerTry.Enums 
+@inject UserManager<ProjectUser> userManager
+@model BugTrackerTry.Models.ProjectUser
+
+
+<h1>Details</h1>
+
+<div class="row">
+    <div class="col">
+        <form asp-action="UserDetails">
+            @Html.HiddenFor(m => m.Id)
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input type="text" asp-for="FirstName" class="form-control" value="@Model.FirstName" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input type="text" asp-for="LastName" class="form-control" value="@Model.LastName" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input type="text" asp-for="UserName" class="form-control" value="@Model.UserName" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TwitterUrl" class="control-label"></label>
+                <input type="text" asp-for="TwitterUrl" class="form-control" value="@Model.TwitterUrl" />
+                <span asp-validation-for="TwitterUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LinkedInUrl" class="control-label"></label>
+                <input type="text" asp-for="LinkedInUrl" class="form-control" value="@Model.LinkedInUrl" />
+                <span asp-validation-for="LinkedInUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="Role" class="control-label"></label>
+                <div class="col">
+                    @foreach (string role in Enum.GetNames(typeof(ProjectRoles)))
+                    {
+                        if ((await userManager.GetRolesAsync(Model)).Contains(role))
+                        {
+
+                            <input type="checkbox" name="roleNames" value="@role" id="@role" checked/>
+                            <label for="@role" class="control-label">@role</label>
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="roleNames" value="@role" id="@role" />
+                            <label for="@role" class="control-label">@role</label>
+                        }
+
+                    }
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-block btn-outline-dark">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+    
+

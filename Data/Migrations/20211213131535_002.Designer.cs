@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BugTrackerTry.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211124140454_001")]
-    partial class _001
+    [Migration("20211213131535_002")]
+    partial class _002
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,12 +23,12 @@ namespace BugTrackerTry.Data.Migrations
 
             modelBuilder.Entity("BugTrackerTry.Models.Company", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CompanyId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.HasKey("Id");
+                    b.HasKey("CompanyId");
 
                     b.ToTable("Companies");
                 });
@@ -39,9 +39,6 @@ namespace BugTrackerTry.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int?>("CompanyId")
-                        .HasColumnType("integer");
 
                     b.Property<string>("ContentType")
                         .HasColumnType("text");
@@ -58,20 +55,13 @@ namespace BugTrackerTry.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<int>("ProjectUserId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("ProjectUserId1")
+                    b.Property<string>("ProjectUserId")
                         .HasColumnType("text");
 
                     b.Property<DateTime>("Updated")
                         .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
-
-                    b.HasIndex("ProjectUserId1");
 
                     b.ToTable("Projects");
                 });
@@ -82,9 +72,6 @@ namespace BugTrackerTry.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("CompanyId")
                         .HasColumnType("integer");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -161,8 +148,6 @@ namespace BugTrackerTry.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompanyId");
-
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -195,10 +180,7 @@ namespace BugTrackerTry.Data.Migrations
                     b.Property<int>("ProjectId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("ProjectUserId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("ProjectUserId1")
+                    b.Property<string>("ProjectUserId")
                         .HasColumnType("text");
 
                     b.Property<DateTime>("Resolved")
@@ -220,7 +202,7 @@ namespace BugTrackerTry.Data.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.HasIndex("ProjectUserId1");
+                    b.HasIndex("ProjectUserId");
 
                     b.ToTable("Tickets");
                 });
@@ -232,10 +214,35 @@ namespace BugTrackerTry.Data.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<string>("ContentType")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("Deleted")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<byte[]>("ImageData")
+                        .HasColumnType("bytea");
+
+                    b.Property<int>("TicketCommentId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TicketHistoryId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("TicketId")
                         .HasColumnType("integer");
 
+                    b.Property<DateTime?>("Updated")
+                        .HasColumnType("timestamp without time zone");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("TicketCommentId");
+
+                    b.HasIndex("TicketHistoryId");
 
                     b.HasIndex("TicketId");
 
@@ -264,6 +271,9 @@ namespace BugTrackerTry.Data.Migrations
                     b.Property<string>("ProjectUserId1")
                         .HasColumnType("text");
 
+                    b.Property<int?>("TicketHistoryId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("TicketId")
                         .HasColumnType("integer");
 
@@ -273,6 +283,8 @@ namespace BugTrackerTry.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ProjectUserId1");
+
+                    b.HasIndex("TicketHistoryId");
 
                     b.HasIndex("TicketId");
 
@@ -427,28 +439,19 @@ namespace BugTrackerTry.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("BugTrackerTry.Models.Project", b =>
+            modelBuilder.Entity("ProjectProjectUser", b =>
                 {
-                    b.HasOne("BugTrackerTry.Models.Company", "Company")
-                        .WithMany("Projects")
-                        .HasForeignKey("CompanyId");
+                    b.Property<string>("ProjectUsersId")
+                        .HasColumnType("text");
 
-                    b.HasOne("BugTrackerTry.Models.ProjectUser", "ProjectUser")
-                        .WithMany("Projects")
-                        .HasForeignKey("ProjectUserId1");
+                    b.Property<int>("ProjectsId")
+                        .HasColumnType("integer");
 
-                    b.Navigation("Company");
+                    b.HasKey("ProjectUsersId", "ProjectsId");
 
-                    b.Navigation("ProjectUser");
-                });
+                    b.HasIndex("ProjectsId");
 
-            modelBuilder.Entity("BugTrackerTry.Models.ProjectUser", b =>
-                {
-                    b.HasOne("BugTrackerTry.Models.Company", "Company")
-                        .WithMany("ProjectUsers")
-                        .HasForeignKey("CompanyId");
-
-                    b.Navigation("Company");
+                    b.ToTable("ProjectProjectUser");
                 });
 
             modelBuilder.Entity("BugTrackerTry.Models.Ticket", b =>
@@ -461,7 +464,7 @@ namespace BugTrackerTry.Data.Migrations
 
                     b.HasOne("BugTrackerTry.Models.ProjectUser", "ProjectUser")
                         .WithMany("Tickets")
-                        .HasForeignKey("ProjectUserId1");
+                        .HasForeignKey("ProjectUserId");
 
                     b.Navigation("Project");
 
@@ -470,6 +473,18 @@ namespace BugTrackerTry.Data.Migrations
 
             modelBuilder.Entity("BugTrackerTry.Models.TicketAttachment", b =>
                 {
+                    b.HasOne("BugTrackerTry.Models.TicketComment", "TicketComment")
+                        .WithMany()
+                        .HasForeignKey("TicketCommentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BugTrackerTry.Models.TicketHistory", "TicketHistory")
+                        .WithMany("TicketAttachments")
+                        .HasForeignKey("TicketHistoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("BugTrackerTry.Models.Ticket", "Ticket")
                         .WithMany("TicketAttachments")
                         .HasForeignKey("TicketId")
@@ -477,6 +492,10 @@ namespace BugTrackerTry.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Ticket");
+
+                    b.Navigation("TicketComment");
+
+                    b.Navigation("TicketHistory");
                 });
 
             modelBuilder.Entity("BugTrackerTry.Models.TicketComment", b =>
@@ -484,6 +503,10 @@ namespace BugTrackerTry.Data.Migrations
                     b.HasOne("BugTrackerTry.Models.ProjectUser", "ProjectUser")
                         .WithMany("TicketComments")
                         .HasForeignKey("ProjectUserId1");
+
+                    b.HasOne("BugTrackerTry.Models.TicketHistory", null)
+                        .WithMany("TicketComments")
+                        .HasForeignKey("TicketHistoryId");
 
                     b.HasOne("BugTrackerTry.Models.Ticket", "Ticket")
                         .WithMany("TicketComments")
@@ -558,11 +581,19 @@ namespace BugTrackerTry.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BugTrackerTry.Models.Company", b =>
+            modelBuilder.Entity("ProjectProjectUser", b =>
                 {
-                    b.Navigation("Projects");
+                    b.HasOne("BugTrackerTry.Models.ProjectUser", null)
+                        .WithMany()
+                        .HasForeignKey("ProjectUsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("ProjectUsers");
+                    b.HasOne("BugTrackerTry.Models.Project", null)
+                        .WithMany()
+                        .HasForeignKey("ProjectsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BugTrackerTry.Models.Project", b =>
@@ -572,8 +603,6 @@ namespace BugTrackerTry.Data.Migrations
 
             modelBuilder.Entity("BugTrackerTry.Models.ProjectUser", b =>
                 {
-                    b.Navigation("Projects");
-
                     b.Navigation("TicketComments");
 
                     b.Navigation("Tickets");
@@ -586,6 +615,13 @@ namespace BugTrackerTry.Data.Migrations
                     b.Navigation("TicketComments");
 
                     b.Navigation("TicketHistory");
+                });
+
+            modelBuilder.Entity("BugTrackerTry.Models.TicketHistory", b =>
+                {
+                    b.Navigation("TicketAttachments");
+
+                    b.Navigation("TicketComments");
                 });
 #pragma warning restore 612, 618
         }

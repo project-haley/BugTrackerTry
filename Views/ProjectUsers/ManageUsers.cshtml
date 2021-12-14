@@ -1,0 +1,35 @@
+﻿@using BugTrackerTry.Enums
+@using BugTrackerTry.Models 
+@using Microsoft.AspNetCore.Identity 
+@model IEnumerable<BugTrackerTry.Models.ProjectUser>
+
+@{ 
+    ViewData["Title"] = "Manage Roles";
+}
+
+<div class="row">
+    @foreach (var user in Model)
+    {
+        @*<div class="form-group">
+            @user.FirstName @user.LastName (@user.DisplayName)
+            <select name="roleValues" id="roleValues" multiple>
+                @foreach (string role in Enum.GetNames(typeof(ProjectRoles)))
+                {
+                    <option value="@role">@role.ToUpper()</option>
+                }
+            </select>
+
+        </div>*@
+
+        <div class="col">
+            <div class="card" style="width: 20rem">
+                <div class="card-body">
+                    <h3 class="card-title">@user.FirstName @user.LastName</h3>
+                    <p class="card-text">Display Name: @user.DisplayName</p>
+                    <a class="btn btn-outline-primary btn-block" asp-controller="ProjectUsers" asp-action="UserDetails" asp-route-id="@user.Id">Manage</a>
+                </div>
+                </div>
+        </div>
+
+    }
+</div>

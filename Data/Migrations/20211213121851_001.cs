@@ -9,7 +9,6 @@ namespace BugTrackerTry.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                // necessary
                 name: "AspNetRoles",
                 columns: table => new
                 {
@@ -24,15 +23,67 @@ namespace BugTrackerTry.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    FirstName = table.Column<string>(type: "text", nullable: false),
+                    LastName = table.Column<string>(type: "text", nullable: false),
+                    DisplayName = table.Column<string>(type: "text", nullable: true),
+                    ImageData = table.Column<byte[]>(type: "bytea", nullable: true),
+                    Image = table.Column<byte[]>(type: "bytea", nullable: true),
+                    ContentType = table.Column<string>(type: "text", nullable: true),
+                    LinkedInUrl = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    TwitterUrl = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    PasswordHash = table.Column<string>(type: "text", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "text", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Companies",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
+                    CompanyId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Companies", x => x.Id);
+                    table.PrimaryKey("PK_Companies", x => x.CompanyId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Projects",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ProjectUserId = table.Column<string>(type: "text", nullable: true),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    Created = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    Updated = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    ImageData = table.Column<byte[]>(type: "bytea", nullable: true),
+                    ContentType = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Projects", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -54,46 +105,6 @@ namespace BugTrackerTry.Data.Migrations
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUsers",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "text", nullable: false),
-                    FirstName = table.Column<string>(type: "text", nullable: false),
-                    LastName = table.Column<string>(type: "text", nullable: false),
-                    DisplayName = table.Column<string>(type: "text", nullable: true),
-                    ImageData = table.Column<byte[]>(type: "bytea", nullable: true),
-                    Image = table.Column<byte[]>(type: "bytea", nullable: true),
-                    ContentType = table.Column<string>(type: "text", nullable: true),
-                    LinkedInUrl = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
-                    TwitterUrl = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
-                    CompanyId = table.Column<int>(type: "integer", nullable: true),
-                    UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
-                    PasswordHash = table.Column<string>(type: "text", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "text", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AspNetUsers_Companies_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "Companies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -182,36 +193,27 @@ namespace BugTrackerTry.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Projects",
+                name: "ProjectProjectUser",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ProjectUserId = table.Column<int>(type: "integer", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    Description = table.Column<string>(type: "text", nullable: true),
-                    Created = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    Updated = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    ImageData = table.Column<byte[]>(type: "bytea", nullable: true),
-                    ContentType = table.Column<string>(type: "text", nullable: true),
-                    ProjectUserId1 = table.Column<string>(type: "text", nullable: true),
-                    CompanyId = table.Column<int>(type: "integer", nullable: true)
+                    ProjectUsersId = table.Column<string>(type: "text", nullable: false),
+                    ProjectsId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Projects", x => x.Id);
+                    table.PrimaryKey("PK_ProjectProjectUser", x => new { x.ProjectUsersId, x.ProjectsId });
                     table.ForeignKey(
-                        name: "FK_Projects_AspNetUsers_ProjectUserId1",
-                        column: x => x.ProjectUserId1,
+                        name: "FK_ProjectProjectUser_AspNetUsers_ProjectUsersId",
+                        column: x => x.ProjectUsersId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Projects_Companies_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "Companies",
+                        name: "FK_ProjectProjectUser_Projects_ProjectsId",
+                        column: x => x.ProjectsId,
+                        principalTable: "Projects",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -221,7 +223,7 @@ namespace BugTrackerTry.Data.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ProjectId = table.Column<int>(type: "integer", nullable: false),
-                    ProjectUserId = table.Column<int>(type: "integer", nullable: false),
+                    ProjectUserId = table.Column<string>(type: "text", nullable: true),
                     Title = table.Column<string>(type: "text", nullable: true),
                     Body = table.Column<string>(type: "text", nullable: true),
                     Created = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -230,15 +232,14 @@ namespace BugTrackerTry.Data.Migrations
                     TicketStatus = table.Column<int>(type: "integer", nullable: false),
                     TicketType = table.Column<int>(type: "integer", nullable: false),
                     ImageData = table.Column<byte[]>(type: "bytea", nullable: true),
-                    ContentType = table.Column<string>(type: "text", nullable: true),
-                    ProjectUserId1 = table.Column<string>(type: "text", nullable: true)
+                    ContentType = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tickets", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Tickets_AspNetUsers_ProjectUserId1",
-                        column: x => x.ProjectUserId1,
+                        name: "FK_Tickets_AspNetUsers_ProjectUserId",
+                        column: x => x.ProjectUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -251,7 +252,7 @@ namespace BugTrackerTry.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TicketAttachments",
+                name: "TicketHistories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -260,9 +261,9 @@ namespace BugTrackerTry.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TicketAttachments", x => x.Id);
+                    table.PrimaryKey("PK_TicketHistories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TicketAttachments_Tickets_TicketId",
+                        name: "FK_TicketHistories_Tickets_TicketId",
                         column: x => x.TicketId,
                         principalTable: "Tickets",
                         principalColumn: "Id",
@@ -281,7 +282,8 @@ namespace BugTrackerTry.Data.Migrations
                     Created = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Updated = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     Deleted = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    ProjectUserId1 = table.Column<string>(type: "text", nullable: true)
+                    ProjectUserId1 = table.Column<string>(type: "text", nullable: true),
+                    TicketHistoryId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -293,6 +295,12 @@ namespace BugTrackerTry.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
+                        name: "FK_TicketComments_TicketHistories_TicketHistoryId",
+                        column: x => x.TicketHistoryId,
+                        principalTable: "TicketHistories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_TicketComments_Tickets_TicketId",
                         column: x => x.TicketId,
                         principalTable: "Tickets",
@@ -301,18 +309,37 @@ namespace BugTrackerTry.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TicketHistories",
+                name: "TicketAttachments",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    TicketId = table.Column<int>(type: "integer", nullable: false)
+                    TicketId = table.Column<int>(type: "integer", nullable: false),
+                    TicketCommentId = table.Column<int>(type: "integer", nullable: false),
+                    TicketHistoryId = table.Column<int>(type: "integer", nullable: false),
+                    Created = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    Updated = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    Deleted = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    ImageData = table.Column<byte[]>(type: "bytea", nullable: true),
+                    ContentType = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TicketHistories", x => x.Id);
+                    table.PrimaryKey("PK_TicketAttachments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TicketHistories_Tickets_TicketId",
+                        name: "FK_TicketAttachments_TicketComments_TicketCommentId",
+                        column: x => x.TicketCommentId,
+                        principalTable: "TicketComments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TicketAttachments_TicketHistories_TicketHistoryId",
+                        column: x => x.TicketHistoryId,
+                        principalTable: "TicketHistories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TicketAttachments_Tickets_TicketId",
                         column: x => x.TicketId,
                         principalTable: "Tickets",
                         principalColumn: "Id",
@@ -351,25 +378,25 @@ namespace BugTrackerTry.Data.Migrations
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_CompanyId",
-                table: "AspNetUsers",
-                column: "CompanyId");
-
-            migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Projects_CompanyId",
-                table: "Projects",
-                column: "CompanyId");
+                name: "IX_ProjectProjectUser_ProjectsId",
+                table: "ProjectProjectUser",
+                column: "ProjectsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Projects_ProjectUserId1",
-                table: "Projects",
-                column: "ProjectUserId1");
+                name: "IX_TicketAttachments_TicketCommentId",
+                table: "TicketAttachments",
+                column: "TicketCommentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TicketAttachments_TicketHistoryId",
+                table: "TicketAttachments",
+                column: "TicketHistoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TicketAttachments_TicketId",
@@ -380,6 +407,11 @@ namespace BugTrackerTry.Data.Migrations
                 name: "IX_TicketComments_ProjectUserId1",
                 table: "TicketComments",
                 column: "ProjectUserId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TicketComments_TicketHistoryId",
+                table: "TicketComments",
+                column: "TicketHistoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TicketComments_TicketId",
@@ -398,9 +430,9 @@ namespace BugTrackerTry.Data.Migrations
                 column: "ProjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tickets_ProjectUserId1",
+                name: "IX_Tickets_ProjectUserId",
                 table: "Tickets",
-                column: "ProjectUserId1");
+                column: "ProjectUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -421,7 +453,16 @@ namespace BugTrackerTry.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Companies");
+
+            migrationBuilder.DropTable(
+                name: "ProjectProjectUser");
+
+            migrationBuilder.DropTable(
                 name: "TicketAttachments");
+
+            migrationBuilder.DropTable(
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "TicketComments");
@@ -430,19 +471,13 @@ namespace BugTrackerTry.Data.Migrations
                 name: "TicketHistories");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
                 name: "Tickets");
-
-            migrationBuilder.DropTable(
-                name: "Projects");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Companies");
+                name: "Projects");
         }
     }
 }

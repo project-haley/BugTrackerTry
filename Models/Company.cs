@@ -7,10 +7,6 @@ namespace BugTrackerTry.Models
 {
     public class Company
     {
-        public int Id { get; set; }
-        
-        //Navigation properties
-        public virtual IEnumerable<Project> Projects { get; set; } = new HashSet<Project>();
-        public virtual IEnumerable<ProjectUser> ProjectUsers { get; set; } = new HashSet<ProjectUser>();
+        public int CompanyId { get; set; }
     }
 }

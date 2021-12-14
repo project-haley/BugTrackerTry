@@ -12,7 +12,7 @@ namespace BugTrackerTry.Models
     {
         public int Id { get; set; }
         public int ProjectId { get; set; }
-        public int ProjectUserId { get; set; }
+        public string ProjectUserId { get; set; }
 
         public string Title { get; set; }
         public string Body { get; set; }
@@ -33,7 +33,7 @@ namespace BugTrackerTry.Models
         public virtual Project Project { get; set; }
         public virtual ProjectUser ProjectUser { get; set; }
         public virtual TicketHistory TicketHistory { get; set; }
-        public virtual IEnumerable<TicketAttachment> TicketAttachments { get; set; } = new HashSet<TicketAttachment>();
-        public virtual IEnumerable<TicketComment> TicketComments { get; set; } = new HashSet<TicketComment>();
+        public virtual ICollection<TicketAttachment> TicketAttachments { get; set; } = new HashSet<TicketAttachment>();
+        public virtual ICollection<TicketComment> TicketComments { get; set; } = new HashSet<TicketComment>();
     }
 }
