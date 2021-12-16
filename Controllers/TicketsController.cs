@@ -47,6 +47,7 @@ namespace BugTrackerTry.Controllers
                 .Include(t => t.Project)
                 .Include(t => t.TicketAttachments)
                 .Include(t => t.TicketComments)
+                .Include(t => t.TicketHistory)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (ticket == null)
             {
@@ -98,8 +99,11 @@ namespace BugTrackerTry.Controllers
                 newTicketAttachment.ContentType = _imageService.ContentType(newTicketAttachment.AttachmentFile);
 
                 ticket.TicketAttachments.Add(newTicketAttachment);
+
+                var newTicketHistory = new TicketHistory(ticket.Id);
+                ticket.TicketHistory = newTicketHistory;
                 
-                //add ticket, which automatically adds ticketAttachment
+                //add ticket, which automatically adds ticketAttachment and ticketHistory
                 await _context.AddAsync(ticket);
                 await _context.SaveChangesAsync();
 
