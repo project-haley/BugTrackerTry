@@ -3,6 +3,7 @@ using BugTrackerTry.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,9 @@ namespace BugTrackerTry.Controllers
                 ticketComment.Created = DateTime.Now;
                 ticketComment.Updated = DateTime.Now;
                 ticketComment.ProjectUserId = _userManager.GetUserId(User);
+
+                var ticketHistory = await _context.TicketHistories.FirstOrDefaultAsync(th => th.TicketId == ticketComment.TicketId);
+                ticketComment.TicketHistoryId = ticketHistory.Id;
 
                 _context.Add(ticketComment);
                 await _context.SaveChangesAsync();

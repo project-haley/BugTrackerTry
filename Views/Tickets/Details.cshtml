@@ -83,6 +83,10 @@
     @foreach(var comment in Model.TicketComments)
         {
             @comment.CommentBody;
+            @if(comment.TicketHistory != null)
+                {
+                    <div>: tickethistory</div>
+                }
         }
 </div>
 
