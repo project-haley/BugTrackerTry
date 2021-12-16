@@ -3,15 +3,17 @@ using System;
 using BugTrackerTry.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BugTrackerTry.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211215162042_007")]
+    partial class _007
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -264,7 +266,7 @@ namespace BugTrackerTry.Data.Migrations
                     b.Property<string>("ProjectUserId")
                         .HasColumnType("text");
 
-                    b.Property<int?>("TicketHistoryId")
+                    b.Property<int>("TicketHistoryId")
                         .HasColumnType("integer");
 
                     b.Property<int>("TicketId")
@@ -483,7 +485,9 @@ namespace BugTrackerTry.Data.Migrations
 
                     b.HasOne("BugTrackerTry.Models.TicketHistory", "TicketHistory")
                         .WithMany()
-                        .HasForeignKey("TicketHistoryId");
+                        .HasForeignKey("TicketHistoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("BugTrackerTry.Models.Ticket", "Ticket")
                         .WithMany("TicketComments")

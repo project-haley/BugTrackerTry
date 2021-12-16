@@ -9,20 +9,9 @@ namespace BugTrackerTry.Controllers
 {
     public class TicketHistoriesController : Controller
     {
-        // GET: TicketHistoriesController
-        public ActionResult Index()
-        {
-            return View();
-        }
 
         // GET: TicketHistoriesController/Details/5
         public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: TicketHistoriesController/Create
-        public ActionResult Create()
         {
             return View();
         }
@@ -42,12 +31,6 @@ namespace BugTrackerTry.Controllers
             }
         }
 
-        // GET: TicketHistoriesController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
         // POST: TicketHistoriesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -63,25 +46,5 @@ namespace BugTrackerTry.Controllers
             }
         }
 
-        // GET: TicketHistoriesController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: TicketHistoriesController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

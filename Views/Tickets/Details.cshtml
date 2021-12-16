@@ -74,11 +74,30 @@
             @Model.TicketAttachments.Count
             @foreach(var ticketAttachment in Model.TicketAttachments)
             {
-                <img class="img-fluid" src="@imageService.DecodeImage(ticketAttachment.ImageData, ticketAttachment.ContentType)" />
+                <img class="img-fluid" style="width: 200px" src="@imageService.DecodeImage(ticketAttachment.ImageData, ticketAttachment.ContentType)" />
             }
         </dd>
     </dl>
 </div>
+<div>
+    @foreach(var comment in Model.TicketComments)
+        {
+            @comment.CommentBody;
+        }
+</div>
+
+<div>
+    <form asp-action="Create" asp-controller="TicketComments" method="post">
+        @Html.Hidden("TicketId", Model.Id)
+
+        <div class="form-group">
+            <label class="h3 control-label">Comment</label>
+            <textarea name="CommentBody" class="form-control" rows="10"></textarea>
+        </div>
+        <button type="submit" class="btn btn-outline-dark btn-block">Add Comment</button>
+    </form>
+</div>
+
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>

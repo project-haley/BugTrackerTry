@@ -46,6 +46,7 @@ namespace BugTrackerTry.Controllers
             var ticket = await _context.Tickets
                 .Include(t => t.Project)
                 .Include(t => t.TicketAttachments)
+                .Include(t => t.TicketComments)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (ticket == null)
             {

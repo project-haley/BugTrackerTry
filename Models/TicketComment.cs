@@ -10,10 +10,10 @@ namespace BugTrackerTry.Models
     {
         public int Id { get; set; }
         public int TicketId { get; set; }
-        public int TicketHistoryId { get; set; }
-        public int ProjectUserId { get; set; }
+        //public int TicketHistoryId { get; set; }
+        public string ProjectUserId { get; set; }
 
-        public string Body { get; set; }
+        public string CommentBody { get; set; }
 
         public DateTime Created { get; set; }
         public DateTime? Updated { get; set; }

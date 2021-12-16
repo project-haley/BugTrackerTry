@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BugTrackerTry.Data;
+using BugTrackerTry.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,58 +12,32 @@ namespace BugTrackerTry.Controllers
 {
     public class TicketCommentsController : Controller
     {
-        // GET: TicketCommentsController
-        public ActionResult Index()
-        {
-            return View();
-        }
+        private readonly UserManager<ProjectUser> _userManager;
+        private readonly ApplicationDbContext _context;
 
-        // GET: TicketCommentsController/Details/5
-        public ActionResult Details(int id)
+        public TicketCommentsController(UserManager<ProjectUser> userManager, ApplicationDbContext context)
         {
-            return View();
-        }
-
-        // GET: TicketCommentsController/Create
-        public ActionResult Create()
-        {
-            return View();
+            _userManager = userManager;
+            _context = context;
         }
 
         // POST: TicketCommentsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create([Bind("TicketId, CommentBody")] TicketComment ticketComment)
         {
-            try
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+                ticketComment.Created = DateTime.Now;
+                ticketComment.Updated = DateTime.Now;
+                ticketComment.ProjectUserId = _userManager.GetUserId(User);
 
-        // GET: TicketCommentsController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
+                _context.Add(ticketComment);
+                await _context.SaveChangesAsync();
+            }
 
-        // POST: TicketCommentsController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction($"Details", "Tickets", new { id = ticketComment.TicketId });
+            
         }
 
         // GET: TicketCommentsController/Delete/5
