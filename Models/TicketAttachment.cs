@@ -12,13 +12,14 @@ namespace BugTrackerTry.Models
 
         public int Id { get; set; }
         public int TicketId { get; set; }
+        public int TicketHistoryId { get; set; }
+
 
         public TicketAttachment(int ticketId)
         {
             TicketId = ticketId;
         }
 
-        public int TicketHistoryId { get; set; }
 
         public DateTime Created { get; set; }
         public DateTime? Updated { get; set; }
@@ -32,5 +33,7 @@ namespace BugTrackerTry.Models
 
         //Navigation properties
         public virtual Ticket Ticket { get; set; }
+        public virtual TicketHistory TicketHistory { get; set; }
+
     }
 }

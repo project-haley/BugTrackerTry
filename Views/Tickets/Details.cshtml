@@ -110,6 +110,16 @@
 </div>
 
 <div>
+    <h5>TICKETATTACHMENT-TICKETHISTORY</h5>
+    <div>
+        @foreach(var ticketAttachment in Model.TicketHistory.TicketAttachments)
+            {
+                @ticketAttachment.TicketHistoryId
+            }
+    </div>
+</div>
+
+<div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

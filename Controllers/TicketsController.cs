@@ -90,18 +90,19 @@ namespace BugTrackerTry.Controllers
                 ticket.Created = DateTime.Now;
                 ticket.Updated = DateTime.Now;
 
-                
-                
+                var newTicketHistory = new TicketHistory(ticket.Id);
+                ticket.TicketHistory = newTicketHistory;
 
+                //Create TicketAttachment
                 var newTicketAttachment = new TicketAttachment(ticket.Id);
                 newTicketAttachment.AttachmentFile = attachmentFile;
                 newTicketAttachment.ImageData = await _imageService.EncodeImageAsync(newTicketAttachment.AttachmentFile);
                 newTicketAttachment.ContentType = _imageService.ContentType(newTicketAttachment.AttachmentFile);
+                newTicketAttachment.TicketHistory = newTicketHistory;
 
                 ticket.TicketAttachments.Add(newTicketAttachment);
 
-                var newTicketHistory = new TicketHistory(ticket.Id);
-                ticket.TicketHistory = newTicketHistory;
+                
                 
                 //add ticket, which automatically adds ticketAttachment and ticketHistory
                 await _context.AddAsync(ticket);

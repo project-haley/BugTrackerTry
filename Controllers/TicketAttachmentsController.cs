@@ -2,6 +2,7 @@
 using BugTrackerTry.Models;
 using BugTrackerTry.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -15,11 +16,13 @@ namespace BugTrackerTry.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IImageService _imageService;
+        private readonly UserManager<ProjectUser> _userManager;
 
-        public TicketAttachmentsController(ApplicationDbContext context, IImageService imageService)
+        public TicketAttachmentsController(ApplicationDbContext context, IImageService imageService, UserManager<ProjectUser> userManager)
         {
             _context = context;
             _imageService = imageService;
+            _userManager = userManager;
         }
         // GET: TicketAttachmentsController
         public async Task<IActionResult> Index()
@@ -43,27 +46,21 @@ namespace BugTrackerTry.Controllers
         // POST: TicketAttachmentsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Text,Image")] TicketAttachment ticketAttachment)
+        public async void Create([Bind("Text,Image")] TicketAttachment ticketAttachment)
         {
             if (ModelState.IsValid)
             {
-                ticketAttachment.ImageData = await _imageService.EncodeImageAsync(ticketAttachment.AttachmentFile);
-                ticketAttachment.ContentType = _imageService.ContentType(ticketAttachment.AttachmentFile);
+                ticketAttachment.Created = DateTime.Now;
+                ticketAttachment.Updated = DateTime.Now;
 
-                try
-                {
-                    _context.Add(ticketAttachment);
-                    await _context.SaveChangesAsync();
-                    //return RedirectToAction(nameof(Index));
-                }
-                catch
-                {
-                    return View();
-                }
+                var ticketHistory = await _context.TicketHistories.FirstOrDefaultAsync(th => th.TicketId == ticketAttachment.TicketId);
+                ticketAttachment.TicketHistoryId = ticketHistory.Id;
+
+                _context.Add(ticketAttachment);
+                await _context.SaveChangesAsync();
+
             }
 
-            return RedirectToAction(nameof(Index));
-            
         }
 
         // GET: TicketAttachmentsController/Edit/5

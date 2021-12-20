@@ -20,6 +20,6 @@ namespace BugTrackerTry.Models
         //Navigation properties
         public virtual Ticket Ticket { get; set; }
         public virtual ICollection<TicketComment> TicketComments { get; set; } = new HashSet<TicketComment>();
-        //public virtual ICollection<TicketAttachment> TicketAttachments { get; set; } = new HashSet<TicketAttachment>();
+        public virtual ICollection<TicketAttachment> TicketAttachments { get; set; } = new HashSet<TicketAttachment>();
     }
 }
