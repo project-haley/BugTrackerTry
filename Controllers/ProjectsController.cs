@@ -31,7 +31,7 @@ namespace BugTrackerTry.Controllers
                 .Include(p => p.ProjectUsers)
                 .Include(p => p.Tickets)
                 .ToListAsync();
-            return View(projectList);
+            return View(projectList.OrderByDescending(p => p.Name).Reverse());
         }
 
         // GET: Projects/Details/5
