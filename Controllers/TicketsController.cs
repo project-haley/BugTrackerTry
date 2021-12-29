@@ -31,7 +31,9 @@ namespace BugTrackerTry.Controllers
         // GET: Tickets
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Tickets.Include(t => t.Project);
+            var applicationDbContext = _context.Tickets
+                .Include(t => t.Project)
+                .Include(t => t.TicketHistory);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -91,6 +93,15 @@ namespace BugTrackerTry.Controllers
                 ticket.Updated = DateTime.Now;
 
                 var newTicketHistory = new TicketHistory(ticket.Id);
+                
+                //create TicketSnapshot to add to TicketHistory
+                var newTicketSnapshot = new TicketSnapshot();
+                newTicketSnapshot.Title = ticket.Title;
+                newTicketSnapshot.Body = ticket.Body;
+                newTicketSnapshot.ImageData = ticket.ImageData;
+                newTicketSnapshot.ContentType = ticket.ContentType;
+                newTicketHistory.TicketSnapshots.Add(newTicketSnapshot);
+
                 ticket.TicketHistory = newTicketHistory;
 
                 //Create TicketAttachment

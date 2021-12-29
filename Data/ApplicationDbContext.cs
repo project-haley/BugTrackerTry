@@ -24,6 +24,7 @@ namespace BugTrackerTry.Data
 
         }
 
+        public DbSet<TicketSnapshot> TicketSnapshots { get; set; }
         public DbSet<TicketAttachment> TicketAttachments { get; set; }
         public DbSet<TicketComment> TicketComments { get; set; }
         public DbSet<TicketHistory> TicketHistories { get; set; }

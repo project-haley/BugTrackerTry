@@ -1,0 +1,26 @@
+﻿@model BugTrackerTry.Models.TicketHistory
+
+<div class="container-fluid">
+
+    <div class="card" style="width: 1fr">
+        <img src="" class="card-img-top" alt="">
+        <div class="card-body">
+            <h5 class="card-title">Ticket Creation</h5>
+            <p class="card-text">
+                @Html.DisplayNameFor(model => model.Ticket.Created)
+                @Html.DisplayFor(model => model.Ticket.Created)
+            </p>
+            <p class="card-text">
+                @Html.DisplayNameFor(model => model.Ticket.Title) :
+                @Html.DisplayFor(model => model.Ticket.Title)
+            </p>
+            <p class="card-text">
+                @Html.DisplayNameFor(model => model.Ticket.Body) : 
+                @Html.DisplayFor(model => model.Ticket.Body)
+            </p>
+        </div>
+    </div>
+
+
+
+</div>

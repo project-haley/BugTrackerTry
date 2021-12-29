@@ -3,15 +3,17 @@ using System;
 using BugTrackerTry.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BugTrackerTry.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211229185755_015")]
+    partial class _015
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -321,12 +323,18 @@ namespace BugTrackerTry.Data.Migrations
                     b.Property<int>("TicketHistoryId")
                         .HasColumnType("integer");
 
+                    b.Property<int>("TicketId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Title")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.HasIndex("TicketHistoryId");
+
+                    b.HasIndex("TicketId")
+                        .IsUnique();
 
                     b.ToTable("TicketSnapshots");
                 });
@@ -556,6 +564,14 @@ namespace BugTrackerTry.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("BugTrackerTry.Models.Ticket", "Ticket")
+                        .WithOne("TicketSnapshot")
+                        .HasForeignKey("BugTrackerTry.Models.TicketSnapshot", "TicketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ticket");
+
                     b.Navigation("TicketHistory");
                 });
 
@@ -644,6 +660,8 @@ namespace BugTrackerTry.Data.Migrations
                     b.Navigation("TicketComments");
 
                     b.Navigation("TicketHistory");
+
+                    b.Navigation("TicketSnapshot");
                 });
 
             modelBuilder.Entity("BugTrackerTry.Models.TicketHistory", b =>

@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BugTrackerTry.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +11,35 @@ namespace BugTrackerTry.Controllers
 {
     public class TicketHistoriesController : Controller
     {
+        private readonly ApplicationDbContext _context;
+
+        public TicketHistoriesController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
 
         // GET: TicketHistoriesController/Details/5
-        public ActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            return View();
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var ticketHistory = await _context.TicketHistories
+                .Include(t => t.Ticket)
+                .Include(t => t.TicketComments)
+                .Include(t => t.TicketAttachments)
+                .FirstOrDefaultAsync(t => t.Id == id);
+
+            if (ticketHistory == null)
+            {
+                return NotFound();
+            }
+
+
+            return View(ticketHistory);
         }
 
         // POST: TicketHistoriesController/Create
