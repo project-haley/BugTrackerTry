@@ -98,8 +98,10 @@ namespace BugTrackerTry.Controllers
                 var newTicketSnapshot = new TicketSnapshot();
                 newTicketSnapshot.Title = ticket.Title;
                 newTicketSnapshot.Body = ticket.Body;
+                newTicketSnapshot.Created = DateTime.Now;
                 newTicketSnapshot.ImageData = ticket.ImageData;
                 newTicketSnapshot.ContentType = ticket.ContentType;
+                newTicketSnapshot.TicketType = ticket.TicketType;
                 newTicketHistory.TicketSnapshots.Add(newTicketSnapshot);
 
                 ticket.TicketHistory = newTicketHistory;
@@ -133,7 +135,16 @@ namespace BugTrackerTry.Controllers
                 return NotFound();
             }
 
-            var ticket = await _context.Tickets.FindAsync(id);
+            var ticket = await _context.Tickets
+                .Include(t => t.Project)
+                .Include(t => t.TicketHistory)
+                .Include(t => t.TicketHistory.TicketSnapshots)
+                .Include(t => t.TicketAttachments)
+                .Include(t => t.TicketComments)
+                .FirstOrDefaultAsync(t => t.Id == id);
+
+            
+
             if (ticket == null)
             {
                 return NotFound();
@@ -147,7 +158,7 @@ namespace BugTrackerTry.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ProjectId,ProjectUserId,Title,Body,Created,Updated,Resolved,TicketStatus,TicketType,ImageData,ContentType")] Ticket ticket)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ProjectId,Title,Body,Resolved,TicketStatus")] Ticket ticket, int ticketHistoryFK)
         {
             if (id != ticket.Id)
             {
@@ -158,8 +169,24 @@ namespace BugTrackerTry.Controllers
             {
                 try
                 {
+                    ticket.Updated = DateTime.Now;
+
+                    var newTicketSnapshot = new TicketSnapshot();
+                    newTicketSnapshot.Title = ticket.Title;
+                    newTicketSnapshot.Body = ticket.Body;
+                    newTicketSnapshot.Created = ticket.Updated;
+                    newTicketSnapshot.ImageData = ticket.ImageData;
+                    newTicketSnapshot.ContentType = ticket.ContentType;
+                    newTicketSnapshot.TicketStatus = ticket.TicketStatus;
+                    //YOU CAN'T ACCESS TICKETHISTORY NAVIGATION PROPERTIES THIS WAY
+
                     _context.Update(ticket);
+
+                    var ticketHistory = await _context.TicketHistories.FirstOrDefaultAsync(th => th.Id == ticketHistoryFK);
+                    ticketHistory.TicketSnapshots.Add(newTicketSnapshot);
+
                     await _context.SaveChangesAsync();
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {

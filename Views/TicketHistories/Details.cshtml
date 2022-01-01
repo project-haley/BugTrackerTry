@@ -1,26 +1,111 @@
 ﻿@model BugTrackerTry.Models.TicketHistory
 
-<div class="container-fluid">
+@*<div class="container"> 
+            @foreach (var ticketSnapshot in Model.TicketSnapshots)
+            {
+                    <div class="card ticketSnapShotCard" style="width: 1fr">
+                        <img src="" class="card-img-top" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title text-right">Ticket State: </h5>
+                            <p class="card-text text-right">
+                                Updated: @Html.DisplayFor(tc => ticketSnapshot.Created)
+                            </p>
+                            <h5 class="card-text">
+                                @Html.DisplayFor(tc => ticketSnapshot.Title)
+                            </h5>
+                            <p class="card-text">
+                                @Html.DisplayFor(tc => ticketSnapshot.Body)
+                            </p>
+                        </div>
+                    </div>
+            }
 
-    <div class="card" style="width: 1fr">
-        <img src="" class="card-img-top" alt="">
-        <div class="card-body">
-            <h5 class="card-title">Ticket Creation</h5>
-            <p class="card-text">
-                @Html.DisplayNameFor(model => model.Ticket.Created)
-                @Html.DisplayFor(model => model.Ticket.Created)
-            </p>
-            <p class="card-text">
-                @Html.DisplayNameFor(model => model.Ticket.Title) :
-                @Html.DisplayFor(model => model.Ticket.Title)
-            </p>
-            <p class="card-text">
-                @Html.DisplayNameFor(model => model.Ticket.Body) : 
-                @Html.DisplayFor(model => model.Ticket.Body)
-            </p>
+
+</div>*@
+
+<div class="container">
+    @for (int i = Model.TicketSnapshots.Count - 1; i >= 0; i--)
+    {
+        <div class="card ticketSnapShotCard" style="width: 1fr">
+            <img src="" class="card-img-top" alt="">
+            <div class="card-body">
+
+
+                <h5 class="card-title text-right">Ticket State: @i</h5>
+
+
+                <p class="card-text text-right">
+                    Updated: @Html.DisplayFor(tc => Model.TicketSnapshots.ToList()[i].Created)
+                </p>
+
+
+                @if (i != 0 && (Model.TicketSnapshots.ToList()[i].Title != Model.TicketSnapshots.ToList()[i - 1].Title))
+                {
+                    <h5 class="card-text updatedHistory">
+                        Title: @Html.DisplayFor(tc => Model.TicketSnapshots.ToList()[i].Title)
+                    </h5>
+                }
+                else
+                {
+                    <h5 class="card-text">
+                        Title: @Html.DisplayFor(tc => Model.TicketSnapshots.ToList()[i].Title)
+                    </h5>
+                }
+
+
+                @if (i != 0 && (Model.TicketSnapshots.ToList()[i].Body != Model.TicketSnapshots.ToList()[i - 1].Body))
+                {
+                    <p class="card-text updatedHistory">
+                        Body: @Html.DisplayFor(tc => Model.TicketSnapshots.ToList()[i].Body)
+                    </p>
+                }
+                else
+                {
+                    <p class="card-text">
+                        Body: @Html.DisplayFor(tc => Model.TicketSnapshots.ToList()[i].Body)
+                    </p>
+                }
+
+
+
+                @if (i != 0 && (Model.TicketSnapshots.ToList()[i].TicketStatus != Model.TicketSnapshots.ToList()[i - 1].TicketStatus))
+                {
+                    <p class="card-text updatedHistory">
+                        Ticket Status: @Html.DisplayFor(tc => Model.TicketSnapshots.ToList()[i].TicketStatus)
+                    </p>
+                }
+                else
+                {
+                    <p class="card-text">
+                        Ticket Status: @Html.DisplayFor(tc => Model.TicketSnapshots.ToList()[i].TicketStatus)
+                    </p>
+                }
+            </div>
         </div>
-    </div>
 
+        if(i != 0)
+        {
+            <div>
+                <p class="text-center mt-3">
+                    <i class="fas fa-arrow-up"></i>
+                </p>
+            </div>
+        }
+        
+    }
 
 
 </div>
+
+
+<style>
+    .ticketSnapShotCard {
+        background-color: rgb(242 239 214);
+        margin-bottom: 5px;
+    }
+    .updatedHistory {
+        background-color: rgb(97 255 216);
+        border-radius: 2px;
+        border: thin;
+    }
+</style>

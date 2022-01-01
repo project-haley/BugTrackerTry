@@ -31,6 +31,7 @@ namespace BugTrackerTry.Controllers
                 .Include(t => t.Ticket)
                 .Include(t => t.TicketComments)
                 .Include(t => t.TicketAttachments)
+                .Include(t => t.TicketSnapshots)
                 .FirstOrDefaultAsync(t => t.Id == id);
 
             if (ticketHistory == null)

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BugTrackerTry.Enums;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,6 +15,10 @@ namespace BugTrackerTry.Models
 
         public string Title { get; set; }
         public string Body { get; set; }
+
+        public TicketStatus TicketStatus { get; set; }
+        public TicketType TicketType { get; set; }
+        public DateTime Resolved { get; set; }
 
         public DateTime Created { get; set; }
 

@@ -1,4 +1,5 @@
-﻿@model BugTrackerTry.Models.Ticket
+﻿@using BugTrackerTry.Enums
+@model BugTrackerTry.Models.Ticket
 
 @{
     ViewData["Title"] = "Edit";
@@ -13,16 +14,10 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="ProjectId" class="control-label"></label>
-                <select asp-for="ProjectId" class="form-control" asp-items="ViewBag.ProjectId"></select>
-                <span asp-validation-for="ProjectId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProjectUserId" class="control-label"></label>
-                <input asp-for="ProjectUserId" class="form-control" />
-                <span asp-validation-for="ProjectUserId" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for="ProjectId" />
+            <input type="hidden" asp-for="TicketHistory" />
+
+            <input type="hidden" value="@Model.TicketHistory.Id" name="TicketHistoryFK"/>
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
@@ -33,41 +28,19 @@
                 <input asp-for="Body" class="form-control" />
                 <span asp-validation-for="Body" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Created" class="control-label"></label>
-                <input asp-for="Created" class="form-control" />
-                <span asp-validation-for="Created" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Updated" class="control-label"></label>
-                <input asp-for="Updated" class="form-control" />
-                <span asp-validation-for="Updated" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Resolved" class="control-label"></label>
-                <input asp-for="Resolved" class="form-control" />
-                <span asp-validation-for="Resolved" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <label asp-for="TicketStatus" class="control-label"></label>
-                <select asp-for="TicketStatus" class="form-control"></select>
+                <select asp-for="TicketStatus" class="form-control">
+                    @foreach (string ticketStatus in Enum.GetNames(typeof(TicketStatus)))
+                    {
+                        <option value="@ticketStatus" name="ticketStatusOption" id="@ticketStatus">@ticketStatus</option>
+                    }
+                </select>
                 <span asp-validation-for="TicketStatus" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="TicketType" class="control-label"></label>
-                <select asp-for="TicketType" class="form-control"></select>
-                <span asp-validation-for="TicketType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ImageData" class="control-label"></label>
-                <input asp-for="ImageData" class="form-control" />
-                <span asp-validation-for="ImageData" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ContentType" class="control-label"></label>
-                <input asp-for="ContentType" class="form-control" />
-                <span asp-validation-for="ContentType" class="text-danger"></span>
-            </div>
+
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

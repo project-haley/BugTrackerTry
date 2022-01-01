@@ -15,8 +15,6 @@ namespace BugTrackerTry.Models
             TicketId = ticketId;
         }
 
-
-
         //Navigation properties
         public virtual Ticket Ticket { get; set; }
         public virtual ICollection<TicketSnapshot> TicketSnapshots { get; set; } = new HashSet<TicketSnapshot>();
