@@ -7,12 +7,12 @@ a.navbar-brand {
   word-break: break-all;
 }
 
-nav {
-    background-image: url("/img/BugTrackerBanner.svg");
-    background-size: 120%;
+header {
+    background-image: url("/img/eberhard-grossgasteiger-xC7Ho08RYF4-unsplash.jpg");
+    background-size: 100%;
     background-repeat: no-repeat;
-    background-position: -20px -60px;
-    height: 100px;
+    background-position: 0px 0px;
+    height: 200px;
 }
 
 /* Provide sufficient contrast against white background */
