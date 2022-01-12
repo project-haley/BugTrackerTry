@@ -39,15 +39,6 @@ namespace BugTrackerTry.Controllers
             return View(applicationDbContext.OrderByDescending(m => m.Id));
         }
 
-        //POST
-        //[HttpPost]
-        //public async Task<IActionResult> ManageUsers(ProjectUser model, string role)
-        //{
-
-        //    await _userManager.AddToRoleAsync(model, role);
-        //    return RedirectToAction("Index");
-        //}
-
         //GET
         [HttpGet]
         public async Task<IActionResult> UserDetails(string id)

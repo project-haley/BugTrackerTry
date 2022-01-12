@@ -57,57 +57,6 @@
     </tbody>
 </table>
 
-<div class="container-fluid">
 
-    @foreach (var proj in Model)
-    {
-        <div class="container m-2 projectItem">
-            <div class="row">
-                <div class="col-9">
-                    <div class="row">
-                        <div class="col-3 border border-dark p-1">
-                            <div class="projectItemBlock">
-                                @Html.DisplayFor(projItem => proj.Name)
-                            </div>
-                        </div>
-                        <div class="col-9 border border-dark p-1">
-                            <div class="projectItemBlock">
-                                @Html.DisplayNameFor(projItem => proj.Created)
-                                @Html.DisplayFor(projItem => proj.Created)
-                            </div>  
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-7 border border-dark p-1">
-                            <div class="projectItemBlock">
-                                @Html.DisplayFor(projItem => proj.Description)
-                            </div>
-                        </div>
-                        <div class="col-5 border border-dark p-1">
-                            <div class="projectItemBlock">
-                                <ul style="list-style-type: none; padding: 0; margin: 0">
-                                    @foreach (var projectUser in proj.ProjectUsers)
-                                    {
-                                        <li>@projectUser.UserName</li>
-                                    }
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3 border border-dark p-1">
-                    <div class="projectItemBlock">
-                        <a asp-action="Edit" asp-route-id="@proj.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@proj.Id">Details</a>
-                        <a asp-action="Delete" asp-route-id="@proj.Id">Delete</a> |
-                        <a asp-action="" asp-route-id="@proj.Id">Save</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    }
-
-</div>
 
 

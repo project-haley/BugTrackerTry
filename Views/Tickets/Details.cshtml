@@ -71,7 +71,6 @@
             @Html.DisplayNameFor(model => model.TicketAttachments)
         </dt>
         <dd class = "col-sm-10">
-            @Model.TicketAttachments.Count
             @foreach(var ticketAttachment in Model.TicketAttachments)
             {
                 <img class="img-fluid" style="width: 200px" src="@imageService.DecodeImage(ticketAttachment.ImageData, ticketAttachment.ContentType)" />
@@ -80,14 +79,18 @@
     </dl>
 </div>
 <div>
-    @foreach(var comment in Model.TicketComments)
+    <div>
+        Comments
+    </div>
+    @foreach (var comment in Model.TicketComments)
+    {
+
+        @if (comment.TicketHistory != null)
         {
-            @comment.CommentBody;
-            @if(comment.TicketHistory != null)
-                {
-                    <div>: tickethistory</div>
-                }
+            <i class="fas fa-check"></i>
         }
+        @comment.CommentBody;
+    }
 </div>
 
 <div>
@@ -100,23 +103,6 @@
         </div>
         <button type="submit" class="btn btn-outline-dark btn-block">Add Comment</button>
     </form>
-</div>
-
-<div>
-    @if(Model.TicketHistory != null)
-        {
-            <h5>A Ticket History Exists</h5>
-        }
-</div>
-
-<div>
-    <h5>TICKETATTACHMENT-TICKETHISTORY</h5>
-    <div>
-        @foreach(var ticketAttachment in Model.TicketHistory.TicketAttachments)
-            {
-                @ticketAttachment.TicketHistoryId
-            }
-    </div>
 </div>
 
 <div>

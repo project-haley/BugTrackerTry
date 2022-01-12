@@ -86,9 +86,6 @@ namespace BugTrackerTry.Controllers
 
                 ticket.ProjectUserId = submitterId;
 
-                //get projectId by passing it into the HttpGet from wherever it was accessed
-                //should be from a project details page
-
                 ticket.Created = DateTime.Now;
                 ticket.Updated = DateTime.Now;
 

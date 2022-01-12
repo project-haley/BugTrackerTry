@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
@@ -32,6 +33,7 @@ namespace BugTrackerTry.Models
         //Navigation properties
         public virtual Project Project { get; set; }
         public virtual ProjectUser ProjectUser { get; set; }
+        [Display(Name = "Attachments")]
         public virtual TicketHistory TicketHistory { get; set; }
         public virtual ICollection<TicketAttachment> TicketAttachments { get; set; } = new HashSet<TicketAttachment>();
         public virtual ICollection<TicketComment> TicketComments { get; set; } = new HashSet<TicketComment>();
