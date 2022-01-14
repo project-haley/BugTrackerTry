@@ -95,7 +95,7 @@
                 }
             }
         </div>
-        <div class="col-6">
+        <div class="col-6 commentColumn">
             <h5>Comments</h5>
             @foreach(var ticketComment in Model.TicketComments)
             {
@@ -110,20 +110,28 @@
 
 
 <style>
-    .ticketSnapShotCard {
-        background-color: rgb(242 239 214);
+    .ticketSnapShotCard:hover {
+        background-color: white;
         margin-bottom: 5px;
+        box-shadow: 0px 3px 10px 3px gray;
+        transition: 0.1s;
     }
     .updatedHistory {
-        background-color: rgb(97 255 216);
+        background-color: rgb(163 246 203);
         border-radius: 2px;
         border: thin;
     }
-    .ticketHistoryComment {
+    .ticketHistoryComment:hover {
         border: thin;
         border-color: black;
         border-radius: 2px;
         background-color: rgb(163 246 203);
         margin-bottom: 5px;
+        box-shadow: 0px 3px 10px 1px gray;
+        transition: 0.1s;
+    }
+    .commentColumn {
+        border: 1px solid rgba(0, 0, 0, 0.125);
+        border-radius: 0.25rem;
     }
 </style>
