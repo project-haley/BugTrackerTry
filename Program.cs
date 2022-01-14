@@ -26,6 +26,7 @@ namespace BugTrackerTry
             await dataService.ManageDataAsync();
 
             host.Run();
+
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
