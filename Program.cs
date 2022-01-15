@@ -1,5 +1,7 @@
+using BugTrackerTry.Data;
 using BugTrackerTry.Services;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,7 +25,13 @@ namespace BugTrackerTry
                 .ServiceProvider
                 .GetRequiredService<DataService>();
 
+
+            //var dbContext = host.Services
+            //                    .CreateScope().ServiceProvider
+            //                    .GetRequiredService<ApplicationDbContext>();
+
             await dataService.ManageDataAsync();
+            //await dbContext.Database.MigrateAsync();
 
             host.Run();
 
