@@ -28,16 +28,26 @@ namespace BugTrackerTry.Controllers
             _imageService = imageService;
         }
 
-        // GET: Tickets
-        public async Task<IActionResult> Index()
+        // Get: Tickets
+        public async Task<IActionResult> Index(int? id)
         {
-            var applicationDbContext = _context.Tickets
+            if (id != null)
+            {
+                var ticketByProjectDbContext = _context.Tickets
+                    .Include(t => t.Project)
+                    .Include(t => t.TicketHistory)
+                    .Where(t => t.ProjectId == id);
+                return View(await ticketByProjectDbContext.ToListAsync());
+            }
+
+            var ticketDbContext = _context.Tickets
                 .Include(t => t.Project)
-                .Include(t => t.TicketHistory);
-            return View(await applicationDbContext.ToListAsync());
+                .Include(t => t.TicketHistory)
+                .Where(t => t.ProjectId == id);
+            return View(await ticketDbContext.ToListAsync());
         }
 
-        // GET: Tickets/Details/5
+        // GET: Tickets/Details/
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)

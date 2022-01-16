@@ -13,9 +13,6 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ProjectUserId)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
@@ -34,12 +31,6 @@
                 @Html.DisplayNameFor(model => model.TicketType)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ImageData)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ContentType)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Project)
             </th>
             <th></th>
@@ -48,9 +39,6 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProjectUserId)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
@@ -68,12 +56,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TicketType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageData)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ContentType)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Project.Id)

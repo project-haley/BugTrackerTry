@@ -1,87 +1,68 @@
 ﻿@model IEnumerable<BugTrackerTry.Models.Project>
+@using BugTrackerTry.Services
+@inject IImageService imageService 
 
 @{
     ViewData["Title"] = "Index";
 }
-<div class="text-center">
-    <h1 class="display-4">Projects</h1>
+@*<div class="text-center">
+    <h1 class="display-4">
+        Projects
+    </h1>
+    <a class="btn btn-outline-dark btn-search mb-2" asp-area="" asp-controller="Projects" asp-action="Create">New</a>
+
+</div>*@
+
+<div class="grid-container">
+    <div class="grid-item"></div>
+    <div class="grid-item text-center">
+        <h1 class="display-4">
+            Projects
+        </h1>
+    </div>
+    <div class="grid-item" id="newProject">
+        <a class="btn btn-outline-dark mb-2 btn-edit" asp-area="" asp-controller="Projects" asp-action="Create">
+            <i class="fas fa-plus"></i>
+        </a>
+    </div>
 </div>
 
-@*<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Created)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProjectUsers)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Created)
-            </td>
-            <td>
-                <ul style="list-style-type: none; padding: 0; margin: 0">
-                    @foreach (var projectUser in item.ProjectUsers)
-                    {
-                        <li>@projectUser.UserName</li>
-                    }
-                </ul>
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>*@
 
-@foreach(var project in Model)
+@foreach (var project in Model)
 {
-    <div class="card mb-3 box-shadow">
-        <div class="row">
-            <div class="card-body">
+    <div class="row align-items-center">
+        <div class="col-2">
+            <div class="indexedImageContainer">
+                <img class="indexedImage" src="@imageService.DecodeImage(project.ImageData, project.ContentType)" />
+            </div>
+        </div>
+        <div class="col-10">
+            <div class="card mb-2 mt-2 box-shadow">
                 <div class="row">
-                    <div class="col-6">
-                        <h5 class="card-title">@project.Name</h5>
-                        <p>@project.Description</p>
-                        <p>Created @project.Created</p>
-                    </div>
-                    <div class="col-2" id="linkList">
-                        <ul>
-                            <li>Tickets</li>
-                            <li>Details</li>
-                            <li>Edit</li>
-                            <li>Delete</li>
-                        </ul>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-10">
+                                <h5 class="card-title">@project.Name</h5>
+                                <p>@project.Description</p>
+                                <p>Created @project.Created</p>
+                            </div>
+                            <div class="col-2" id="linkList">
+                                <div>
+                                    <a asp-controller="Tickets" asp-action="Index" asp-route-id="@project.Id">Tickets</a>
+                                    <a asp-controller="Projects" asp-action="Details" asp-route-id="@project.Id">Details</a>
+                                    <a asp-controller="Projects" asp-action="Edit" asp-route-id="@project.Id">Edit</a>
+                                    <a asp-controller="Projects" asp-action="Delete" asp-route-id="@project.Id">Delete</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 }
+
+
 
 
 

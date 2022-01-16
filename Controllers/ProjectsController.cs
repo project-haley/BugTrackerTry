@@ -9,6 +9,8 @@ using BugTrackerTry.Data;
 using BugTrackerTry.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using BugTrackerTry.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace BugTrackerTry.Controllers
 {
@@ -17,11 +19,13 @@ namespace BugTrackerTry.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ProjectUser> _userManager;
+        private readonly IImageService _imageService;
 
-        public ProjectsController(ApplicationDbContext context, UserManager<ProjectUser> userManager)
+        public ProjectsController(ApplicationDbContext context, UserManager<ProjectUser> userManager, IImageService imageService)
         {
             _context = context;
             _userManager = userManager;
+            _imageService = imageService;
         }
 
         // GET: Projects
@@ -65,7 +69,7 @@ namespace BugTrackerTry.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator, ProjectManager")]
-        public async Task<IActionResult> Create([Bind("Name,Description,ImageData,ContentType,ProjectUsers")] Project project, List<string> userList)
+        public async Task<IActionResult> Create([Bind("Name,Description,Image,ProjectUsers")] Project project, List<string> userList, IFormFile attachmentFile)
         {
             if (ModelState.IsValid)
             {
@@ -74,6 +78,10 @@ namespace BugTrackerTry.Controllers
                 project.Created = DateTime.Now;
                 project.Updated = DateTime.Now;
                 project.ProjectUserId = authorId;
+                project.Image = attachmentFile;
+                project.ImageData = await _imageService.EncodeImageAsync(project.Image);
+                project.ContentType = _imageService.ContentType(project.Image);
+
 
                 //First, add project to db?
                 _context.Add(project);

@@ -1,4 +1,7 @@
-﻿.projectItem {
+﻿body {
+    color: var(--soft-dark);
+}
+.projectItem {
     background-color: rgb(255 0 0)
 }
 
@@ -16,4 +19,17 @@
 
 #linkList {
     justify-content: end;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+}
+.grid-item {
+    align-items: center;
+}
+
+#newProject {
+    justify-self: end;
 }

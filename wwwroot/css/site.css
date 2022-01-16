@@ -1,6 +1,10 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+:root {
+    --soft-dark: rgb(122 121 121);
+}
+
 a.navbar-brand {
   white-space: normal;
   text-align: center;
@@ -9,10 +13,11 @@ a.navbar-brand {
 
 header {
     /*background-image: url("/img/eberhard-grossgasteiger-xC7Ho08RYF4-unsplash.jpg");*/
-    background-size: 100%;
+    background-size: 550px;
     background-repeat: no-repeat;
-    background-position: 0px 0px;
+    background-position: 100% 0px;
     height: 200px;
+    background-image: url(/img/custom-map.png);
 }
 
 /* Provide sufficient contrast against white background */
@@ -24,6 +29,30 @@ a {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
+}
+.btn-edit {
+    border-radius: 50%;
+    line-height: 1rem;
+    padding-right: 7.5px;
+    padding-left: 7.5px;
+    border-color: var(--soft-dark);
+    border-width: 2px;
+    color: var(--soft-dark);
+}
+.indexedImage {
+    /*height: 10rem;
+    width: 10rem;*/
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .09);
+}
+.indexedImageContainer {
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
@@ -75,7 +104,7 @@ html {
 }
 
 body {
-    background-image: linear-gradient(rgb(183 254 208), rgb(202 255 222), white 35%);
+    background-image: linear-gradient(rgb(183 254 208), rgb(202 255 222), white 200px);
     font-family: 'Catamaran', sans-serif;
     font-size: 25px;
 }
