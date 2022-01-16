@@ -4,8 +4,16 @@
 
 .projectItemBlock {
     text-align: center;
-    background-color: red;
+    background-color: ;
     padding: 10px;
     border-radius: 3px;
     height: 100%;
+}
+
+.card-body {
+    font-size: 15px;
+}
+
+#linkList {
+    justify-content: end;
 }

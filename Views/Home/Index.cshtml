@@ -1,18 +1,90 @@
-﻿@{
+﻿@using BugTrackerTry.Models 
+@model IEnumerable<Ticket>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Click below to start a new project or ticket.</p>
+
+
+
+
+<div class="text-center mt-5">
+    <h1 class="display-4">Create</h1>
 </div>
 
-<div class="text-center mb-3">
-    <a class="btn btn-outline-dark" asp-area="" asp-controller="Projects" asp-action="Create">New Project</a>
+<div class="row mt-4 create-block">
+    <div class="col-6 align-text-center">
+        <p class="">
+            Revolutionize your workflow with project management.
+        </p>
+        <p class="">
+            Create projects and tickets
+            within those projects to tackle business needs as they pop up.
+        </p>
+        <p class="">
+            Customize tickets for appearance, type, and urgency.
+        </p>
+    </div>
+    <div class="col-6 text-center">
+        <img style="height:16rem" class="align-self-center" src="/img/hexa-circle-logo.svg" />
+    </div>
 </div>
 
-<div class="text-center">
-    <a class="btn btn-outline-dark" asp-area="" asp-controller="Tickets" asp-action="Create">New Ticket</a>
+<div class="text-center mt-5">
+    <h1 class="display-4">Collaborate</h1>
 </div>
 
+<div class="row mt-4 collaborate-block">
+    <div class="col-6">
 
+    </div>
+    <div class="col-6">
+        <p>
+            Assign tasks to team members, or claim one for yourself.
+        </p>
+        <p>
+            Leave comments for one another.
+        </p>
+        <p>
+            See what others have done by tracking changes.
+        </p>
+    </div>
+</div>
+
+<div class="text-center mt-5">
+    <h1 class="display-4">Clear</h1>
+</div>
+
+<div class="row mt-4 clear-block">
+    <div class="col-6">
+        <p>
+            Archive tasks once they're completed.
+        </p>
+        <p>
+            Move on. Progress is waiting!
+        </p>
+    </div>
+    <div class="col-6">
+
+    </div>
+</div>
+
+<div class="text-center mt-5">
+    <h1 class="display-4">Using</h1>
+</div>
+
+<div class="row mt-4 text-center technologySection">
+    <div class="col">
+        <img width="15%" src="/img/css-logo.svg" /> &nbsp
+        <img width="15%" src="/img/html-logo.svg" /> &nbsp
+        <img width="13%" src="/img/heroku-logo-solid-purple.svg" /> &nbsp
+        <img width="15%" src="/img/postgresql-logo.svg" /> &nbsp
+        <img width="15%" src="/img/javascript-logo.svg" /> &nbsp
+        <img width="13%" src="/img/c-sharp-logo.svg" />
+    </div>
+</div>
+
+<div class="text-center mt-5">
+    <h1 class="display-4">Recent Activity</h1>
+</div>

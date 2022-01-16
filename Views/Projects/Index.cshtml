@@ -3,10 +3,11 @@
 @{
     ViewData["Title"] = "Index";
 }
+<div class="text-center">
+    <h1 class="display-4">Projects</h1>
+</div>
 
-<h1>Index</h1>
-
-<p>
+@*<p>
     <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
@@ -55,8 +56,32 @@
         </tr>
 }
     </tbody>
-</table>
+</table>*@
 
+@foreach(var project in Model)
+{
+    <div class="card mb-3 box-shadow">
+        <div class="row">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <h5 class="card-title">@project.Name</h5>
+                        <p>@project.Description</p>
+                        <p>Created @project.Created</p>
+                    </div>
+                    <div class="col-2" id="linkList">
+                        <ul>
+                            <li>Tickets</li>
+                            <li>Details</li>
+                            <li>Edit</li>
+                            <li>Delete</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 
 
