@@ -42,8 +42,7 @@ namespace BugTrackerTry.Controllers
 
             var ticketDbContext = _context.Tickets
                 .Include(t => t.Project)
-                .Include(t => t.TicketHistory)
-                .Where(t => t.ProjectId == id);
+                .Include(t => t.TicketHistory);
             return View(await ticketDbContext.ToListAsync());
         }
 
@@ -82,7 +81,7 @@ namespace BugTrackerTry.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Body,TicketStatus,TicketType,ImageData,ContentType")] Ticket ticket, string projectOptionSelect, IFormFile attachmentFile)
+        public async Task<IActionResult> Create([Bind("Title,Body,TicketStatus,TicketType,Image")] Ticket ticket, string projectOptionSelect, IFormFile attachmentFile)
         {
             
 
@@ -98,6 +97,9 @@ namespace BugTrackerTry.Controllers
 
                 ticket.Created = DateTime.Now;
                 ticket.Updated = DateTime.Now;
+                ticket.Image = attachmentFile;
+                ticket.ImageData = await _imageService.EncodeImageAsync(attachmentFile);
+                ticket.ContentType = _imageService.ContentType(attachmentFile);
 
                 var newTicketHistory = new TicketHistory(ticket.Id);
                 

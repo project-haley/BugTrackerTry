@@ -21,12 +21,12 @@
     justify-content: end;
 }
 
-.grid-container {
+.grid-container-projects {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     align-items: center;
 }
-.grid-item {
+.grid-item-projects {
     align-items: center;
 }
 

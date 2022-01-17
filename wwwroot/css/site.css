@@ -30,7 +30,7 @@ a {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
-.btn-edit {
+.function-btn {
     border-radius: 50%;
     line-height: 1rem;
     padding-right: 7.5px;
@@ -139,4 +139,30 @@ body {
 }
 .btn-search {
     height: 100%;
+}
+
+.ticket-grid-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    align-items: center;
+    grid-gap: 1rem;
+}
+.ticket-grid-item {
+
+}
+.ticket-card-body {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.ticket-card-title {
+    font-size: 30px;
+    margin: 0;
+}
+.card-grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+}
+.card-grid-item {
+
 }

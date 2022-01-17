@@ -1,74 +1,66 @@
-﻿@model IEnumerable<BugTrackerTry.Models.Ticket>
+﻿@using BugTrackerTry.Services
+@inject IImageService imageService 
+@model IEnumerable<BugTrackerTry.Models.Ticket>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="grid-container">
+    <div class="grid-item"></div>
+    <div class="grid-item text-center">
+        <h1 class="display-4">
+            Tickets
+        </h1>
+    </div>
+    <div class="grid-item" id="newProject">
+        <a class="btn btn-outline-dark mb-2 function-btn" asp-area="" asp-controller="Tickets" asp-action="Create">
+            <i class="fas fa-plus"></i>
+        </a>
+    </div>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Created)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Updated)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Resolved)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TicketStatus)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TicketType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Project)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Created)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Updated)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Resolved)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TicketStatus)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TicketType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Project.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
-                <a asp-controller="TicketHistories" asp-action="Details" asp-route-id="@item.TicketHistory.Id">History</a>
+<div class="ticket-grid-container">
 
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    @foreach (var ticket in Model)
+    {
+        <div class="ticket-grid-item">
+
+                <div class="card mb-2 mt-2 box-shadow">
+                    <div class="row">
+                        <div class="card-body ticket-card-body">
+                            <div class="card-grid-container">
+                                <div class="card-title ticket-card-title card-grid-item text-left">@ticket.Title</div>
+                                <div class="card-grid-item mt-1 text-right"><i class="fas fa-project-diagram"></i>@ticket.Project.Name</div>
+                            </div>
+                            <div class="d-flex align-items-center" style="height:50px">
+                                <div>
+                                    @if(ticket.Body.Length > 50)
+                                    {
+                                        @ticket.Body.Substring(0, 50);
+                                    }
+                                    else
+                                    {
+                                        @ticket.Body
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="text-left">
+                                <a class="function-btn p-0 mr-1" asp-controller="Tickets" asp-action="Details" asp-route-id="@ticket.Id"><i class="fas fa-book-open"></i></a>
+                                <a class="function-btn p-0 mr-1" asp-controller="TicketHistories" asp-action="Details" asp-route-id="@ticket.Id"><i class="fas fa-feather"></i></a>
+                                <a class="function-btn p-0 mr-1" asp-controller="Tickets" asp-action="Edit" asp-route-id="@ticket.Id"><i class="fas fa-pen"></i></a>
+                                <a class="function-btn p-0 mr-1" asp-controller="Tickets" asp-action="Delete" asp-route-id="@ticket.Id"><i class="fas fa-trash"></i></a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+    }
+
+</div>
+
+
 
