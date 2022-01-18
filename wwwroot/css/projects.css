@@ -1,17 +1,7 @@
 ﻿body {
     color: var(--soft-dark);
 }
-.projectItem {
-    background-color: rgb(255 0 0)
-}
 
-.projectItemBlock {
-    text-align: center;
-    background-color: ;
-    padding: 10px;
-    border-radius: 3px;
-    height: 100%;
-}
 
 .card-body {
     font-size: 15px;
@@ -21,15 +11,3 @@
     justify-content: end;
 }
 
-.grid-container-projects {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    align-items: center;
-}
-.grid-item-projects {
-    align-items: center;
-}
-
-#newProject {
-    justify-self: end;
-}

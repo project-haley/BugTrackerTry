@@ -3,6 +3,7 @@ for details on configuring this project to bundle and minify static web assets. 
 
 :root {
     --soft-dark: rgb(122 121 121);
+    --full-dark: rgb(39 39 39);
 }
 
 a.navbar-brand {
@@ -33,11 +34,14 @@ a {
 .function-btn {
     border-radius: 50%;
     line-height: 1rem;
-    padding-right: 7.5px;
-    padding-left: 7.5px;
-    border-color: var(--soft-dark);
-    border-width: 2px;
+    padding-top: 7px;
+    padding-left: 7px;
+    padding-right: 7px;
+    padding-bottom: 7px;
     color: var(--soft-dark);
+}
+.function-btn-border {
+    box-shadow: 0 .1rem .75rem rgba(0, 0, 0, .19);
 }
 .indexedImage {
     /*height: 10rem;
@@ -88,7 +92,7 @@ nav {
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+  box-shadow: 0 .15rem .75rem rgba(0, 0, 0, .15);
 }
 
 button.accept-policy {
@@ -139,6 +143,12 @@ body {
 }
 .btn-search {
     height: 100%;
+    border: none;
+    box-shadow: 0 .15rem .75rem rgba(0, 0, 0, .15);
+}
+
+.project-card {
+    border: none;
 }
 
 .ticket-grid-container {
@@ -150,19 +160,49 @@ body {
 .ticket-grid-item {
 
 }
+.ticket-card {
+    height: 200px;
+    position: relative;
+    border: none;
+    box-shadow: 0 .15rem .75rem rgba(0, 0, 0, .15);
+}
 .ticket-card-body {
     padding-top: 0px;
     padding-bottom: 0px;
+    position: relative;
 }
 .ticket-card-title {
-    font-size: 30px;
+    font-size: 20px;
     margin: 0;
 }
 .card-grid-container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 3fr 1fr;
     align-items: center;
 }
 .card-grid-item {
 
+}
+.new-item {
+    justify-self: end;
+}
+.grid-container-projects {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+}
+
+.grid-item-projects {
+    align-items: center;
+}
+.projectItem {
+    background-color: rgb(255 0 0)
+}
+
+.projectItemBlock {
+    text-align: center;
+    background-color:;
+    padding: 10px;
+    border-radius: 3px;
+    height: 100%;
 }

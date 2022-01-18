@@ -6,15 +6,15 @@
     ViewData["Title"] = "Index";
 }
 
-<div class="grid-container">
-    <div class="grid-item"></div>
-    <div class="grid-item text-center">
+<div class="grid-container-projects">
+    <div class="grid-item-projects"></div>
+    <div class="grid-item-projects text-center">
         <h1 class="display-4">
             Tickets
         </h1>
     </div>
-    <div class="grid-item" id="newProject">
-        <a class="btn btn-outline-dark mb-2 function-btn" asp-area="" asp-controller="Tickets" asp-action="Create">
+    <div class="grid-item-projects d-flex">
+        <a class="btn-outline-dark function-btn function-btn-border" asp-area="" asp-controller="Tickets" asp-action="Create">
             <i class="fas fa-plus"></i>
         </a>
     </div>
@@ -26,35 +26,36 @@
     {
         <div class="ticket-grid-item">
 
-                <div class="card mb-2 mt-2 box-shadow">
-                    <div class="row">
-                        <div class="card-body ticket-card-body">
-                            <div class="card-grid-container">
-                                <div class="card-title ticket-card-title card-grid-item text-left">@ticket.Title</div>
-                                <div class="card-grid-item mt-1 text-right"><i class="fas fa-project-diagram"></i>@ticket.Project.Name</div>
-                            </div>
-                            <div class="d-flex align-items-center" style="height:50px">
-                                <div>
-                                    @if(ticket.Body.Length > 50)
-                                    {
-                                        @ticket.Body.Substring(0, 50);
-                                    }
-                                    else
-                                    {
-                                        @ticket.Body
-                                    }
-                                </div>
-                            </div>
+                <div class="card ticket-card mb-2 mt-2 box-shadow faux-border">
 
-                            <div class="text-left">
-                                <a class="function-btn p-0 mr-1" asp-controller="Tickets" asp-action="Details" asp-route-id="@ticket.Id"><i class="fas fa-book-open"></i></a>
-                                <a class="function-btn p-0 mr-1" asp-controller="TicketHistories" asp-action="Details" asp-route-id="@ticket.Id"><i class="fas fa-feather"></i></a>
-                                <a class="function-btn p-0 mr-1" asp-controller="Tickets" asp-action="Edit" asp-route-id="@ticket.Id"><i class="fas fa-pen"></i></a>
-                                <a class="function-btn p-0 mr-1" asp-controller="Tickets" asp-action="Delete" asp-route-id="@ticket.Id"><i class="fas fa-trash"></i></a>
+                    <div class="card-body ticket-card-body">
+                        <div class="card-grid-container">
+                            <div class="card-title ticket-card-title card-grid-item text-left">@ticket.Title</div>
+                            <div class="card-grid-item mt-1 text-right"><i class="fas fa-project-diagram"></i>@ticket.Project.Name</div>
+                        </div>
+                        <div style="position:absolute; top:40px">
+                            <div>
+                                @if (ticket.Body.Length > 100)
+                                {
+                                    @ticket.Body.Substring(0, 100) <text>...</text>;
+                                }
+                                else
+                                {
+                                    @ticket.Body
+                                }
                             </div>
+                        </div>
+
+                        <div class="text-right" style="position:absolute; bottom:0px">
+                            <a class="function-btn p-0 mr-1" asp-controller="Tickets" asp-action="Details" asp-route-id="@ticket.Id"><i class="fas fa-book-open"></i></a>
+                            <a class="function-btn p-0 mr-1" asp-controller="TicketHistories" asp-action="Details" asp-route-id="@ticket.Id"><i class="fas fa-feather"></i></a>
+                            <a class="function-btn p-0 mr-1" asp-controller="Tickets" asp-action="Edit" asp-route-id="@ticket.Id"><i class="fas fa-pen"></i></a>
+                            <a class="function-btn p-0 mr-1" asp-controller="Tickets" asp-action="Delete" asp-route-id="@ticket.Id"><i class="fas fa-trash"></i></a>
 
                         </div>
+
                     </div>
+
                 </div>
 
         </div>
