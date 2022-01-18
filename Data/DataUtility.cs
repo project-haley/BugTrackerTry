@@ -26,6 +26,7 @@ namespace BugTrackerTry.Data
             var databaseUri = new Uri(databaseUrl);
             var userInfo = databaseUri.UserInfo.Split(':');
 
+            //Required for Npgsql integration with external service
             var builder = new NpgsqlConnectionStringBuilder
             {
                 Host = databaseUri.Host,
