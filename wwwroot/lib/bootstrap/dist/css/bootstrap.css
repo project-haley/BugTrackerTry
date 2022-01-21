@@ -27,7 +27,7 @@
   --light: #f8f9fa;
   --dark: #343a40;
   --breakpoint-xs: 0;
-  --breakpoint-sm: 576px;
+  --breakpoint-sm: 630px;
   --breakpoint-md: 768px;
   --breakpoint-lg: 992px;
   --breakpoint-xl: 1200px;
@@ -553,7 +553,7 @@ pre code {
   margin-left: auto;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 630px) {
   .container {
     max-width: 540px;
   }
@@ -823,7 +823,7 @@ pre code {
   margin-left: 91.666667%;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 630px) {
   .col-sm {
     -ms-flex-preferred-size: 0;
     flex-basis: 0;
@@ -2313,7 +2313,7 @@ textarea.form-control {
   width: 100%;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 630px) {
   .form-inline label {
     display: -ms-flexbox;
     display: flex;
@@ -3084,7 +3084,7 @@ input[type="button"].btn-block {
   left: auto;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 630px) {
   .dropdown-menu-sm-left {
     right: auto;
     left: 0;
@@ -4222,7 +4222,6 @@ input[type="button"].btn-block {
   padding: 0.25rem 0.75rem;
   font-size: 1.25rem;
   line-height: 1;
-  background-color: transparent;
   border: 1px solid transparent;
   border-radius: 0.25rem;
 }
@@ -4241,7 +4240,7 @@ input[type="button"].btn-block {
   background-size: 100% 100%;
 }
 
-@media (max-width: 575.98px) {
+@media (max-width: 630px) {
   .navbar-expand-sm > .container,
   .navbar-expand-sm > .container-fluid {
     padding-right: 0;
@@ -4249,7 +4248,7 @@ input[type="button"].btn-block {
   }
 }
 
-@media (min-width: 576px) {
+@media (min-width: 630px) {
   .navbar-expand-sm {
     -ms-flex-flow: row nowrap;
     flex-flow: row nowrap;
@@ -4679,7 +4678,7 @@ input[type="button"].btn-block {
   margin-bottom: 15px;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 630px) {
   .card-deck {
     -ms-flex-flow: row wrap;
     flex-flow: row wrap;
@@ -4710,7 +4709,7 @@ input[type="button"].btn-block {
   margin-bottom: 15px;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 630px) {
   .card-group {
     -ms-flex-flow: row wrap;
     flex-flow: row wrap;
@@ -4754,7 +4753,7 @@ input[type="button"].btn-block {
   margin-bottom: 0.75rem;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 630px) {
   .card-columns {
     -webkit-column-count: 3;
     -moz-column-count: 3;
@@ -5090,7 +5089,7 @@ a.badge-dark:focus, a.badge-dark.focus {
   border-radius: 0.3rem;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 630px) {
   .jumbotron {
     padding: 4rem 2rem;
   }
@@ -5402,7 +5401,7 @@ a.badge-dark:focus, a.badge-dark.focus {
   border-bottom-left-radius: 0;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 630px) {
   .list-group-horizontal-sm {
     -ms-flex-direction: row;
     flex-direction: row;
@@ -5906,7 +5905,7 @@ a.close.disabled {
   overflow: scroll;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 630px) {
   .modal-dialog {
     max-width: 500px;
     margin: 1.75rem auto;
@@ -6759,7 +6758,7 @@ button.bg-dark:focus {
   display: inline-flex !important;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 630px) {
   .d-sm-none {
     display: none !important;
   }
@@ -7132,7 +7131,7 @@ button.bg-dark:focus {
   align-self: stretch !important;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 630px) {
   .flex-sm-row {
     -ms-flex-direction: row !important;
     flex-direction: row !important;
@@ -7700,7 +7699,7 @@ button.bg-dark:focus {
   float: none !important;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 630px) {
   .float-sm-left {
     float: left !important;
   }
@@ -8346,7 +8345,7 @@ button.bg-dark:focus {
   margin-left: auto !important;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 630px) {
   .m-sm-0 {
     margin: 0 !important;
   }
@@ -9760,7 +9759,7 @@ button.bg-dark:focus {
   text-align: center !important;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 630px) {
   .text-sm-left {
     text-align: left !important;
   }

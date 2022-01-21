@@ -31,13 +31,13 @@
                     <div class="card-body ticket-card-body">
                         <div class="card-grid-container">
                             <div class="card-title ticket-card-title card-grid-item text-left">@ticket.Title</div>
-                            <div class="card-grid-item mt-1 text-right"><i class="fas fa-project-diagram"></i>@ticket.Project.Name</div>
+                            <div class="card-grid-item mt-1 text-right ticket-card-project"><i class="fas fa-project-diagram"></i>@ticket.Project.Name</div>
                         </div>
                         <div style="position:absolute; top:40px">
                             <div>
-                                @if (ticket.Body.Length > 100)
+                                @if (ticket.Body.Length > 50)
                                 {
-                                    @ticket.Body.Substring(0, 100) <text>...</text>;
+                                    @ticket.Body.Substring(0, 50) <text>...</text>;
                                 }
                                 else
                                 {
