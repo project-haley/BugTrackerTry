@@ -40,10 +40,54 @@ namespace BugTrackerTry.Controllers
                 return View(await ticketByProjectDbContext.ToListAsync());
             }
 
-            var ticketDbContext = _context.Tickets
+            var tickets = await _context.Tickets
                 .Include(t => t.Project)
-                .Include(t => t.TicketHistory);
-            return View(await ticketDbContext.ToListAsync());
+                .Include(t => t.TicketHistory)
+                .ToListAsync();
+
+            
+
+
+            return View(tickets);
+        }
+
+        [Route("Tickets/SortIndex/{sort}")]
+        public async Task<IActionResult> SortIndex(string sort)
+        {
+            if (sort != null)
+            {
+                var tickets = await _context.Tickets
+                    .Include(t => t.Project)
+                    .Include(t => t.TicketHistory)
+                    .ToListAsync();
+
+                switch (sort)
+                {
+                    case "name":
+                        tickets = tickets.OrderBy(t => t.ProjectUserId).ToList();
+                        break;
+                    case "namereverse":
+                        tickets = tickets.OrderByDescending(t => t.ProjectUserId).ToList();;
+                        break;
+                    case "project":
+                        tickets = tickets.OrderBy(t => t.ProjectId).ToList();
+                        break;
+                    case "type":
+                        tickets = tickets.OrderBy(t => t.TicketType).ToList();
+                        break;
+                    case "status":
+                        tickets = tickets.OrderBy(t => t.TicketStatus).ToList();
+                        break;
+                    default:
+                        tickets = tickets.OrderByDescending(t => t.Created).ToList();
+                        break;
+                }
+
+                return View(tickets);
+            }
+
+            return null;
+
         }
 
         // GET: Tickets/Details/

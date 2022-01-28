@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using BugTrackerTry.Services;
 
 namespace BugTrackerTry.Areas.Identity.Pages.Account
 {
@@ -23,13 +24,13 @@ namespace BugTrackerTry.Areas.Identity.Pages.Account
         private readonly SignInManager<ProjectUser> _signInManager;
         private readonly UserManager<ProjectUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
-        private readonly IEmailSender _emailSender;
+        private readonly IBugEmailSender _emailSender;
 
         public RegisterModel(
             UserManager<ProjectUser> userManager,
             SignInManager<ProjectUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IBugEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -50,6 +51,15 @@ namespace BugTrackerTry.Areas.Identity.Pages.Account
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
+
+            [Required]
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+
+            [Required]
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
 
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
@@ -75,7 +85,14 @@ namespace BugTrackerTry.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ProjectUser { UserName = Input.Email, Email = Input.Email };
+                var user = new ProjectUser { 
+                    UserName = Input.Email, 
+                    Email = Input.Email,
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    DisplayName = Input.FirstName + "" + Input.LastName[0]
+                };
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

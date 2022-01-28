@@ -17,6 +17,11 @@
         <a class="btn-outline-dark function-btn function-btn-border" asp-area="" asp-controller="Tickets" asp-action="Create">
             <i class="fas fa-plus"></i>
         </a>
+        <a asp-controller="Tickets" asp-action="SortIndex" asp-route-id="name">A - Z</a>
+        <a asp-controller="Tickets" asp-action="SortIndex" asp-route-id="namereverse">Z - A</a>
+        <a asp-controller="Tickets" asp-action="SortIndex" asp-route-id="project">By Project</a>
+        <a asp-controller="Tickets" asp-action="SortIndex" asp-route-id="type">By Type</a>
+        <a asp-controller="Tickets" asp-action="SortIndex" asp-route-id="status">By Status</a>
     </div>
 </div>
 

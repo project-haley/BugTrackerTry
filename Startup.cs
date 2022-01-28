@@ -2,6 +2,7 @@ using BlogProject.Services;
 using BugTrackerTry.Data;
 using BugTrackerTry.Models;
 using BugTrackerTry.Services;
+using BugTrackerTry.ViewModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -47,7 +48,10 @@ namespace BugTrackerTry
             services.AddRazorPages();
 
             services.AddScoped<DataService>();
+
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
             services.AddScoped<IBugEmailSender, EmailService>();
+
             services.AddScoped<IImageService, BasicImageService>();
         }
 
@@ -75,6 +79,10 @@ namespace BugTrackerTry
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                    name: "SortIndex",
+                    pattern: "Tickets/SortIndex/{sort}",
+                    defaults: new { controller = "Tickets", action = "SortIndex" });
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
