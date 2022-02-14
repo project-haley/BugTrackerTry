@@ -38,6 +38,18 @@ a {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+.create-block {
+    display: flex;
+    align-items: center;
+}
+.collaborate-block {
+    display: flex;
+    align-items: center;
+}
+.clear-block {
+    display: flex;
+    align-items: center;
+}
 .function-btn {
     border-radius: 50%;
     line-height: 1rem;
@@ -151,6 +163,7 @@ body {
     height: 100%;   
     border: none;
     box-shadow: 0 .15rem .75rem rgba(0, 0, 0, .15);
+    float: right;
 }
 
 .project-card {

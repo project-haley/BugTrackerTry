@@ -47,6 +47,7 @@ namespace BugTrackerTry
 
             services.AddRazorPages();
 
+            services.AddScoped<SearchService>();
             services.AddScoped<DataService>();
 
             services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));

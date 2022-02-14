@@ -1,4 +1,5 @@
 ﻿using BugTrackerTry.Data;
+using BugTrackerTry.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,23 +12,21 @@ namespace BugTrackerTry.Controllers
     public class SearchController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly SearchService _searchService;
 
-        public SearchController(ApplicationDbContext context)
+        public SearchController(ApplicationDbContext context, SearchService searchService)
         {
             _context = context;
+            _searchService = searchService;
         }
 
         public async Task<IActionResult> Index(string searchString)
         {
-            var projects = from m in _context.Projects
-                         select m;
+            ViewData["SearchString"] = searchString;
 
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                projects = projects.Where(s => s.Name!.Contains(searchString));
-            }
+            var projects = _searchService.SearchProjects(searchString);
 
-            return View(await projects.ToListAsync());
+            return View(projects);
 
         }
     }

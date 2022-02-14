@@ -1,0 +1,61 @@
+﻿@model IEnumerable<BugTrackerTry.Models.Project>
+@using BugTrackerTry.Services
+@inject IImageService imageService 
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="grid-container-projects">
+    <div class="grid-item-projects"></div>
+    <div class="grid-item-projects text-center">
+        <h1 class="display-4">
+            Search Results
+        </h1>
+    </div>
+    <div class="grid-item-projects d-flex">
+        <a class="btn-outline-dark function-btn function-btn-border" asp-area="" asp-controller="Projects" asp-action="Create">
+            <i class="fas fa-plus"></i>
+        </a>
+    </div>
+</div>
+
+
+@foreach (var project in Model)
+{
+    <div class="row align-items-center">
+        <div class="col-2">
+            <div class="indexedImageContainer">
+                <img class="indexedImage" src="@imageService.DecodeImage(project.ImageData, project.ContentType)" />
+            </div>
+        </div>
+        <div class="col-10">
+            <div class="card project-card mb-2 mt-2 box-shadow">
+                <div class="row">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-9">
+                                <h5 class="card-title">@project.Name</h5>
+                                <p>@project.Description</p>
+                                <p>Created @project.Created</p>
+                            </div>
+                            <div class="col-3" id="linkList">
+                                <div>
+                                    <a asp-controller="Tickets" asp-action="Index" asp-route-id="@project.Id">Tickets</a>
+                                    <a asp-controller="Projects" asp-action="Details" asp-route-id="@project.Id">Details</a>
+                                    <a asp-controller="Projects" asp-action="Edit" asp-route-id="@project.Id">Edit</a>
+                                    <a asp-controller="Projects" asp-action="Delete" asp-route-id="@project.Id">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+
